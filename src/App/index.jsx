@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 
 import UserLogin from '../views/UserLogin'
 import ChatScreen from '../views/ChatScreen'
+
 class App extends Component {
   state = {
     currentUsername: '',
-    currentScreen: 'UserLogin'
+    currentScreen: 'LoginScreen'
   }
 
   onUsernameSubmit = username => {
@@ -26,9 +27,15 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.currentScreen === 'ChatScreen')
-      return <ChatScreen currentUsername={this.state.currentUsername} />
-    else return <UserLogin onSubmit={this.onUsernameSubmit} />
+    return (
+      <div className="app">
+        {this.state.currentScreen === 'ChatScreen' ? (
+          <ChatScreen currentUsername={this.state.currentUsername} />
+        ) : (
+          <UserLogin onSubmit={this.onUsernameSubmit} />
+        )}
+      </div>
+    )
   }
 }
 
