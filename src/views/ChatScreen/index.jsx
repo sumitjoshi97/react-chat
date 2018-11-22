@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Chatkit from '@pusher/chatkit-client'
 
+import Messagelist from '../../components/MessageList'
+import SendMessageForm from '../../components/SendMessageForm'
+
 export default class ChatScreen extends Component {
   state = {
     messages: [],
@@ -52,7 +55,7 @@ export default class ChatScreen extends Component {
       .catch(err => console.error(err))
   }
 
-  sendMessage(text) {
+  sendMessage = text => {
     this.state.currentUser.sendMessage({
       text,
       roomId: this.state.currentRoom.id
@@ -66,10 +69,21 @@ export default class ChatScreen extends Component {
   }
 
   render() {
+    const { usersWhoAreTyping } = this.state
     return (
       <div>
-        ChatScreen
+        <h1>Chat</h1>
         {this.props.currentUsername}
+        <Messagelist messages={this.state.messages} />
+        <p>
+          {usersWhoAreTyping.length > 0
+            ? JSON.stringify(this.state.usersWhoAreTyping)
+            : null}
+        </p>
+        <SendMessageForm
+          onSubmit={this.sendMessage}
+          onChange={this.sendTypingEvent}
+        />
       </div>
     )
   }
