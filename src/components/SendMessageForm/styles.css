@@ -1,0 +1,19 @@
+.message-form {
+  position: fixed;
+  bottom: 0;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-input {
+  flex: 8;
+  text-align: left;
+}
+
+.message-send {
+  cursor: pointer;
+  background-color: #1d5391;
+  color: #fff;
+  flex:1;
+}

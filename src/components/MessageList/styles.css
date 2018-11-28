@@ -1,0 +1,27 @@
+.message-list {
+  position: fixed;
+  height: calc(90vh - 60px);
+  width: 60%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  padding: 14px;
+  margin: 0 14px 0 14px;
+  align-items: center;
+  border-bottom: 0.2px solid rgba(0, 0, 0, 0.99);
+}
+
+.message-sender {
+  padding: 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #c73232;
+}
+
+.message-text {
+}
