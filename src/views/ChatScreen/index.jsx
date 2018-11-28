@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import Chatkit from '@pusher/chatkit-client'
 
+import Header from '../../components/Header'
+import RoomsList from '../../components/RoomsList'
+import MembersList from '../../components/MembersList'
 import Messagelist from '../../components/MessageList'
 import SendMessageForm from '../../components/SendMessageForm'
+
+import './styles.css'
 
 export default class ChatScreen extends Component {
   state = {
@@ -71,20 +76,27 @@ export default class ChatScreen extends Component {
   render() {
     const { usersWhoAreTyping } = this.state
     return (
-      <div>
-        <h1>Chat</h1>
-        {this.props.currentUsername}
-        <Messagelist messages={this.state.messages} />
-        <p>
+      <>
+        <Header />
+        <div className='chat-screen'>
+          <RoomsList />
+
+          <div className='chat'>
+            <Messagelist messages={this.state.messages} />
+            {/* <p>
           {usersWhoAreTyping.length > 0
             ? JSON.stringify(this.state.usersWhoAreTyping)
             : null}
-        </p>
-        <SendMessageForm
-          onSubmit={this.sendMessage}
-          onChange={this.sendTypingEvent}
-        />
-      </div>
+        </p> */}
+            <SendMessageForm
+              onSubmit={this.sendMessage}
+              onChange={this.sendTypingEvent}
+            />
+          </div>
+
+          <MembersList />
+        </div>
+      </>
     )
   }
 }
