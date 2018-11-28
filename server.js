@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const Chatkit = require('pusher-chatkit-server')
+const Chatkit = require('@pusher/chatkit-server')
 const keys = require('./keys')
 
 const app = express()
@@ -16,20 +16,28 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.post('/users', (req, res) => {
-  const {username} = req.body
+  const { username } = req.body
 
-  chatkit.createUser({
-    name: username,
-    id: username
+  chatkit
+    .createUser({
+      id: username,
+      name: username
+    })
+    .then(() => res.sendStatus(201))
+    .catch(error => {
+      if (error.error === 'services/chatkit/user_already_exists') {
+        res.sendStatus(200)
+      } else {
+        res.status(error.status).json(error)
+      }
+    })
+})
+
+app.post('/auth', (req, res) => {
+  const authData = chatkit.authenticate({
+    userId: req.query.user_id
   })
-  .then(() => res.sendStatus(201))
-  .catch(err => {
-    if (err.error_type === 'services/chatkit/user/user_already_exists') {
-      res.sendStatus(200)
-    } else {
-      res.sendStatus(err.statusCode).json(err)
-    }
-  })
+  res.status(authData.status).send(authData.body)
 })
 
 const PORT = 3001
