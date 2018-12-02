@@ -70,6 +70,44 @@ export default class ChatScreen extends Component {
   sendTypingEvent = () => {
     this.state.currentUser
       .isTypingIn({ roomId: this.state.currentRoom.id })
+  addRoom = name => {
+    this.state.currentUser
+      .createRoom({ name })
+      .then(room => {
+        this.subscribeUserToRoom(this.state.currentUser, room)
+        this.fetchMessagesForCurrentRoom(room)
+        this.setState({ currentRoom: room })
+      })
+      .catch(err => console.error(err))
+  }
+
+  addMemberToRoom = member => {
+    const { currentUser, currentRoom } = this.state
+    currentUser
+      .addUserToRoom({
+        userId: member,
+        roomId: currentRoom.id
+      })
+      .catch(err => console.error(err))
+  }
+
+  setCurrentRoom = roomId => {
+    const { currentUser } = this.state
+    const room = currentUser.rooms.find(room => room.id === roomId)
+    this.setState({
+      currentRoom: room,
+      usersWhoAreTyping: []
+    })
+    this.fetchMessagesForCurrentRoom(room)
+  }
+
+  fetchMessagesForCurrentRoom = room => {
+    return this.state.currentUser
+      .fetchMessages({
+        roomId: room.id,
+        limit: 10
+      })
+      .then(messages => this.setState({ messages }))
       .catch(err => console.error(err))
   }
 
