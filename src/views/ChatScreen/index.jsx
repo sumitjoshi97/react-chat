@@ -112,29 +112,82 @@ export default class ChatScreen extends Component {
   }
 
   render() {
-    const { usersWhoAreTyping } = this.state
+    const {
+      messages,
+      currentUser,
+      currentRoom,
+      isDialogActive,
+      dialogName,
+      usersWhoAreTyping,
+      isSettingActive,
+      currentTheme
+    } = this.state
+
+    const theme =
+      currentTheme !== 'dark'
+        ? currentTheme === 'blue'
+          ? THEME.LIGHT_BLUE_THEME
+          : THEME.LIGHT_RED_THEME
+        : THEME.DARK_THEME
+        
+    const onSubmit = dialogName === 'room' ? this.addRoom : this.addMemberToRoom
+    const dialog = isDialogActive ? (
+      <Dialog
+        name={dialogName}
+        toggleDialog={this.toggleDialog}
+        onSubmit={onSubmit}
+        theme={theme}
+      />
+    ) : null
+
+    if (isSettingActive) {
+      return (
+        <Setting
+          setTheme={this.setTheme}
+          toggleSettings={this.toggleSettings}
+        />
+      )
+    } else {
     return (
       <>
-        <Header />
+          <Header
+            currentRoom={currentRoom.name}
+            toggleSettings={this.toggleSettings}
+            theme={theme}
+          />
         <div className='chat-screen'>
-          <RoomsList />
+            <RoomsList
+              rooms={currentUser.rooms}
+              toggleDialog={this.toggleDialog}
+              currentRoom={currentRoom}
+              setCurrentRoom={this.setCurrentRoom}
+              theme={theme}
+            />
 
-          <div className='chat'>
-            <Messagelist messages={this.state.messages} />
-            {/* <p>
-          {usersWhoAreTyping.length > 0
-            ? JSON.stringify(this.state.usersWhoAreTyping)
-            : null}
-        </p> */}
+            <div
+              className='chat'
+              style={{ background: theme.secondaryBackground }}
+            >
+              <Messagelist messages={messages} theme={theme} />
+              <div className='chat-form'>
+                <TypingIndicator usersWhoAreTyping={usersWhoAreTyping} />
             <SendMessageForm
               onSubmit={this.sendMessage}
               onChange={this.sendTypingEvent}
+                  theme={theme}
             />
           </div>
+            </div>
 
-          <MembersList />
+            <MembersList
+              members={currentRoom.users}
+              toggleDialog={this.toggleDialog}
+              theme={theme}
+            />
         </div>
+          {dialog}
       </>
     )
   }
+}
 }
