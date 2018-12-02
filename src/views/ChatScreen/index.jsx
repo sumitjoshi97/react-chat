@@ -129,6 +129,25 @@ export default class ChatScreen extends Component {
       .catch(err => console.error(err))
   }
 
+  toggleDialog = (name = '') => {
+    this.setState(prevState => ({
+      isDialogActive: !prevState.isDialogActive,
+      dialogName: name
+    }))
+  }
+
+  toggleSettings = () => {
+    this.setState(prevState => ({
+      isSettingActive: !prevState.isSettingActive
+    }))
+  }
+
+  setTheme = theme => {
+    if (theme !== this.state.currentTheme) {
+      this.setState({ currentTheme: theme })
+    }
+  }
+
   render() {
     const {
       messages,
