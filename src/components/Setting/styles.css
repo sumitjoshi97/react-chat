@@ -1,0 +1,37 @@
+.settings {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.themes {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+  padding: 20px;
+}
+
+.theme-box {
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blue {
+  background: #80b7f5;
+}
+
+.red {
+  background: #eb4949;
+}
+
+.dark {
+  background: #181b1f;
+}

@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.dialog-form {
+  background: #ededed;
+  padding: 30px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  font-family: inherit;
+}
+
+.cancel {
+  font-size: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel:active,
+.cancel:focus {
+  outline: none;
+}

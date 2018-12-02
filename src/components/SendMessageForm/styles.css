@@ -1,7 +1,7 @@
 .message-form {
-  position: fixed;
+  /* position: absolute; */
   bottom: 0;
-  width: 60%;
+  /* width: 100%; */
   display: flex;
   justify-content: space-between;
 }
@@ -9,11 +9,11 @@
 .message-input {
   flex: 8;
   text-align: left;
+  font-size: 16px;
+  font-family: inherit;
 }
 
 .message-send {
   cursor: pointer;
-  background-color: #1d5391;
-  color: #fff;
-  flex:1;
+  flex: 1;
 }

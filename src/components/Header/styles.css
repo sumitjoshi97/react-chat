@@ -1,0 +1,30 @@
+.app-header {
+  background: #80b7f5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+}
+.app-name {
+  font-size: 16px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.settings-header {
+  background: none;
+  border: none;
+  margin-right: 20px;
+  font-size: 16px;
+  font-family: inherit;
+  color: #fff;
+  cursor: pointer;
+}
+
+.settings-header:focus, .settings-header:active {
+  outline: none;
+}
