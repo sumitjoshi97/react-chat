@@ -30,8 +30,23 @@ export default class ChatScreen extends Component {
       .connect()
       .then(currentUser => {
         this.setState({ currentUser })
-        return currentUser.subscribeToRoom({
-          roomId: '21344503',
+        return currentUser.rooms.map(room =>
+          this.subscribeUserToRoom(currentUser, room)
+        )
+      })
+      .then(() => {
+        const currentRoom = this.state.currentUser.rooms[0]
+        this.setState({ currentRoom })
+      })
+      .then(() => {
+        return this.fetchMessagesForCurrentRoom(this.state.currentRoom)
+      })
+      .catch(err => console.error(err))
+  }
+
+  subscribeUserToRoom = (user, room) => {
+    return user.subscribeToRoom({
+      roomId: room.id,
           messageLimit: 100,
           hooks: {
             onMessage: message => {
@@ -70,6 +85,9 @@ export default class ChatScreen extends Component {
   sendTypingEvent = () => {
     this.state.currentUser
       .isTypingIn({ roomId: this.state.currentRoom.id })
+      .catch(error => console.error('error', error))
+  }
+
   addRoom = name => {
     this.state.currentUser
       .createRoom({ name })
