@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
 import Chatkit from '@pusher/chatkit-client'
 
+import Dialog from '../../components/Dialog'
 import Header from '../../components/Header'
 import RoomsList from '../../components/RoomsList'
 import MembersList from '../../components/MembersList'
 import Messagelist from '../../components/MessageList'
+import TypingIndicator from '../../components/TypingIndicator'
 import SendMessageForm from '../../components/SendMessageForm'
-
+import Setting from '../../components/Setting'
+import * as THEME from '../../utils/theme'
 import './styles.css'
 
 export default class ChatScreen extends Component {
   state = {
-    messages: [],
-    currentRoom: {},
     currentUser: {},
-    usersWhoAreTyping: []
+    currentRoom: {},
+    messages: [],
+    usersWhoAreTyping: [],
+    isDialogActive: false,
+    dialogName: '',
+    isSettingActive: false,
+    currentTheme: 'blue'
   }
 
   componentDidMount() {
@@ -47,32 +54,29 @@ export default class ChatScreen extends Component {
   subscribeUserToRoom = (user, room) => {
     return user.subscribeToRoom({
       roomId: room.id,
-          messageLimit: 100,
-          hooks: {
-            onMessage: message => {
-              this.setState({
-                messages: [...this.state.messages, message]
-              })
-            },
-            onUserStartedTyping: user => {
-              this.setState({
-                usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.name]
-              })
-            },
-            onUserStoppedTyping: user => {
-              this.setState({
-                usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
-                  username => username !== user.name
-                )
-              })
-            },
-            onPresenceChange: () => this.forceUpdate(),
-            onUserJoined: () => this.forceUpdate()
-          }
-        })
-      })
-      .then(currentRoom => this.setState({ currentRoom }))
-      .catch(err => console.error(err))
+      messageLimit: 100,
+      hooks: {
+        onMessage: message => {
+          this.setState({
+            messages: [...this.state.messages, message]
+          })
+        },
+        onUserStartedTyping: user => {
+          this.setState({
+            usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.name]
+          })
+        },
+        onUserStoppedTyping: user => {
+          this.setState({
+            usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
+              username => username !== user.name
+            )
+          })
+        },
+        onPresenceChange: () => this.forceUpdate(),
+        onUserJoined: () => this.forceUpdate()
+      }
+    })
   }
 
   sendMessage = text => {
@@ -185,14 +189,14 @@ export default class ChatScreen extends Component {
         />
       )
     } else {
-    return (
-      <>
+      return (
+        <>
           <Header
             currentRoom={currentRoom.name}
             toggleSettings={this.toggleSettings}
             theme={theme}
           />
-        <div className='chat-screen'>
+          <div className='chat-screen'>
             <RoomsList
               rooms={currentUser.rooms}
               toggleDialog={this.toggleDialog}
@@ -208,12 +212,12 @@ export default class ChatScreen extends Component {
               <Messagelist messages={messages} theme={theme} />
               <div className='chat-form'>
                 <TypingIndicator usersWhoAreTyping={usersWhoAreTyping} />
-            <SendMessageForm
-              onSubmit={this.sendMessage}
-              onChange={this.sendTypingEvent}
+                <SendMessageForm
+                  onSubmit={this.sendMessage}
+                  onChange={this.sendTypingEvent}
                   theme={theme}
-            />
-          </div>
+                />
+              </div>
             </div>
 
             <MembersList
@@ -221,10 +225,10 @@ export default class ChatScreen extends Component {
               toggleDialog={this.toggleDialog}
               theme={theme}
             />
-        </div>
+          </div>
           {dialog}
-      </>
-    )
+        </>
+      )
+    }
   }
-}
 }
