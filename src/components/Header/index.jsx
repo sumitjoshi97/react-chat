@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Header extends Component {
-  render() {
-    return <div style={styles.header} >header</div>
+import './styles.css'
+
+const Header = ({ toggleSettings, theme }) => {
+  const headerStyles = {
+    background: theme.primaryBackground,
+    color: theme.fontPrimary
   }
+
+  return (
+    <div className='app-header' style={headerStyles}>
+      <div className='app-name'>#react-CHAT</div>
+      <button className='settings-header' onClick={toggleSettings}>
+        settings
+      </button>
+    </div>
+  )
 }
 
-const styles = {
-  header: {
-    background: '#1d5391',
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    height: '60px',
-    width: '100%'
-  }
-}
+export default Header

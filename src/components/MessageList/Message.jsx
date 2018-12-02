@@ -9,10 +9,18 @@ export default class Message extends PureComponent {
 
   render() {
     const { messageSender, messageText } = this.props
+
     return (
       <li className='message'>
-        <span className='message-sender'>{messageSender}</span>
-        <p className='message-text'>{messageText}</p>
+        <span
+          className='message-sender'
+          style={{ color: this.props.senderStyle }}
+        >
+          {messageSender}
+        </span>
+        <p className='message-text' style={{ color: this.props.messageStyle }}>
+          {messageText}
+        </p>
       </li>
     )
   }

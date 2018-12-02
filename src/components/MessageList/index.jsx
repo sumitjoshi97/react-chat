@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Message from './Message'
 import './styles.css'
 
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, theme }) => {
   return (
     <ul className='message-list'>
       {messages.map(message => (
@@ -12,6 +12,8 @@ const MessageList = ({ messages }) => {
           key={message.id}
           messageSender={message.senderId}
           messageText={message.text}
+          senderStyle={theme.fontSecondary}
+          messageStyle={theme.fontPrimary}
         />
       ))}
     </ul>
@@ -19,7 +21,8 @@ const MessageList = ({ messages }) => {
 }
 
 MessageList.propTypes = {
-  messages: PropTypes.array
+  messages: PropTypes.array,
+  theme: PropTypes.object.isRequired
 }
 
 export default MessageList

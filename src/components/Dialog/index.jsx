@@ -6,7 +6,8 @@ import './styles.css'
 export default class Dialog extends Component {
   static propTypes = {
     toggleDialog: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    theme: PropTypes.object.isRequired
   }
 
   state = {
@@ -24,9 +25,29 @@ export default class Dialog extends Component {
   }
 
   render() {
+    const { theme } = this.props
+
+    const styles = {
+      dialogStyles: {
+        background: theme.secondaryBackground,
+        color: theme.fontPrimary
+      },
+      inputStyles: {
+        background: theme.tertiaryBackground,
+        color: theme.fontPrimary
+      },
+      buttonStyles: {
+        background: theme.primaryBackground,
+        color: theme.fontPrimary
+      }
+    }
     return (
       <div className='main'>
-        <form onSubmit={this.onSubmit} className='dialog-form'>
+        <form
+          onSubmit={this.onSubmit}
+          className='dialog-form'
+          style={styles.dialogStyles}
+        >
           <button onClick={this.props.toggleDialog} className='cancel'>
             x
           </button>
@@ -35,9 +56,15 @@ export default class Dialog extends Component {
             type='text'
             placeholder='Type here..'
             onChange={this.onInputChange}
-            className='input dialog-input'
+            className='input'
+            style={styles.inputStyles}
           />
-          <input type='submit' className='input button dialog-add-btn' value='Add' />
+          <input
+            type='submit'
+            className='input button'
+            style={styles.buttonStyles}
+            value='Add'
+          />
         </form>
       </div>
     )
