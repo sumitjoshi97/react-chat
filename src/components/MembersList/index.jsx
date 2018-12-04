@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Member from './Member'
-import * as THEME from '../../utils/theme'
 
 export default class MembersList extends Component {
   static propTypes = {
@@ -12,13 +11,15 @@ export default class MembersList extends Component {
   }
 
   renderMembers = () => {
-    const { members } = this.props
+    const { members, theme } = this.props
     if (members) {
       return this.props.members.map(member => (
         <Member
           key={member.id}
           memberName={member.name}
           memberPresence={member.presence}
+          memberOfflineColor={theme.memberOffline}
+          memberOnlineColor={theme.memberOnline}
         />
       ))
     }
