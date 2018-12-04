@@ -9,18 +9,16 @@ export default class RoomsList extends Component {
   }
 
   renderRooms = () => {
-    const { rooms } = this.props
+    const { rooms, theme } = this.props
     if (rooms) {
       return this.props.rooms.map(room => (
         <Room
           key={room.id}
           roomName={room.name}
-          classes={
-            this.props.currentRoom.id === room.id
-              ? 'list-item current-room'
-              : 'list-item'
-          }
+          isCurrentRoom={this.props.currentRoom.id === room.id}
           setCurrentRoom={() => this.props.setCurrentRoom(room.id)}
+          selectionColor={theme.secondaryBackground}
+          hoverColor={theme.tertiaryBackground}
         />
       ))
     }
