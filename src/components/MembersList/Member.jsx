@@ -3,18 +3,21 @@ import PropTypes from 'prop-types'
 
 export default class Member extends PureComponent {
   static propTypes = {
-    memberName: PropTypes.string.isRequired
+    memberName: PropTypes.string.isRequired,
+    memberOfflineColor: PropTypes.string.isRequired,
+    memberOnlineColor: PropTypes.string.isRequired
   }
 
   render() {
+    const { memberOnlineColor, memberOfflineColor, memberName } = this.props
     const presenceStyle =
       this.props.memberPresence.state === 'online'
-        ? { background: '#2e2' }
-        : { background: '#2e2e2e' }
+        ? { background: memberOnlineColor }
+        : { background: memberOfflineColor }
     return (
       <li className='list-item'>
         <span className='presence' style={presenceStyle} />
-        {this.props.memberName}
+        {memberName}
       </li>
     )
   }
