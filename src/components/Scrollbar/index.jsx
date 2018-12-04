@@ -4,9 +4,8 @@ import Radium from 'radium'
 
 class Scrollbar extends Component {
   renderThumb = ({ style, ...props }) => {
-    const { theme } = this.props
     const thumbStyle = {
-      backgroundColor: theme.primaryBackground,
+      backgroundColor: this.props.thumbColor,
       borderRadius: '5px',
       marginRight: '5px'
     }
