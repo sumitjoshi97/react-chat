@@ -20,21 +20,5 @@ body {
 
 /* custom scrollbar for messages view */
 ::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1e2227;
-  border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #101316;
-  outline: 2px solid slategrey;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #30373f;
+  width: 2px;
 }
