@@ -2,20 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Message from './Message'
+import Scrollbar from '../Scrollbar'
 import './styles.css'
 
 const MessageList = ({ messages, theme }) => {
   return (
     <ul className='message-list'>
-      {messages.map(message => (
-        <Message
-          key={message.id}
-          messageSender={message.senderId}
-          messageText={message.text}
-          senderStyle={theme.fontSecondary}
-          messageStyle={theme.fontPrimary}
-        />
-      ))}
+      <Scrollbar thumbColor={theme.primaryBackground}>
+        {messages.map(message => (
+          <Message
+            key={message.id}
+            messageSender={message.senderId}
+            messageText={message.text}
+            senderStyle={theme.fontSecondary}
+            messageStyle={theme.fontPrimary}
+          />
+        ))}
+      </Scrollbar>
     </ul>
   )
 }
