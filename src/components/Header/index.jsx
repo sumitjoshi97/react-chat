@@ -11,7 +11,11 @@ const Header = ({ toggleSettings, theme }) => {
   return (
     <div className='app-header' style={headerStyles}>
       <div className='app-name'>#react-CHAT</div>
-      <button className='settings-header' onClick={toggleSettings}>
+      <button
+        className='settings-header'
+        style={{ color: theme.fontPrimary }}
+        onClick={toggleSettings}
+      >
         settings
       </button>
     </div>
