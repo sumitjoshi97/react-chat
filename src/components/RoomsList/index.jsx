@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Room from './Room'
+import Scrollbar from '../Scrollbar'
 
 export default class RoomsList extends Component {
   static propTypes = {
@@ -39,9 +40,11 @@ export default class RoomsList extends Component {
     }
     return (
       <div className='column' style={styles.listStyles}>
+        <div className='list-header'>Your Rooms</div>
         <ul className='list'>
-          <li className='list-header'>Your Rooms</li>
-          {this.renderRooms()}
+          <Scrollbar thumbColor={theme.secondaryBackground}>
+            {this.renderRooms()}
+          </Scrollbar>
         </ul>
         <button
           className='add-btn'

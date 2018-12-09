@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Member from './Member'
+import Scrollbar from '../Scrollbar'
 
 export default class MembersList extends Component {
   static propTypes = {
@@ -40,9 +41,11 @@ export default class MembersList extends Component {
     }
     return (
       <div className='column' style={styles.listStyles}>
+        <div className='list-header'>Members list</div>
         <ul className='list'>
-          <li className='list-header'>Members list</li>
-          {this.renderMembers()}
+          <Scrollbar thumbColor={theme.secondaryBackground}>
+            {this.renderMembers()}
+          </Scrollbar>
         </ul>
         <button
           className='add-btn'
