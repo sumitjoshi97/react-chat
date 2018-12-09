@@ -12,6 +12,11 @@ export default class Scrollbar extends Component {
   }
 
   render() {
-    return <Scrollbars renderThumbVertical={this.renderThumb} {...this.props} />
+    return (
+      <Scrollbars
+        renderThumbVertical={this.renderThumb}
+        {...this.props.children}
+      />
+    )
   }
 }
