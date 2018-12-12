@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 
-class Room extends Component {
+class Room extends PureComponent {
   static propTypes = {
     roomName: PropTypes.string,
     selectionColor: PropTypes.string.isRequired,
