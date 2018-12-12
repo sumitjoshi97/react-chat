@@ -1,7 +1,6 @@
 .message-list {
-  position: fixed;
   height: calc(90vh - 60px);
-  width: 70%;
+  flex-grow: 1;
   overflow: hidden;
   overflow-y: scroll;
 }
