@@ -43,7 +43,7 @@ export default class MembersList extends Component {
       <div className='column' style={styles.listStyles}>
         <div className='list-header'>Members list</div>
         <ul className='list'>
-          <Scrollbar thumbColor={theme.secondaryBackground}>
+          <Scrollbar thumbColor={theme.secondaryBackground} autoHide>
             {this.renderMembers()}
           </Scrollbar>
         </ul>

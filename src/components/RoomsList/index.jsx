@@ -42,7 +42,7 @@ export default class RoomsList extends Component {
       <div className='column' style={styles.listStyles}>
         <div className='list-header'>Your Rooms</div>
         <ul className='list'>
-          <Scrollbar thumbColor={theme.secondaryBackground}>
+          <Scrollbar thumbColor={theme.secondaryBackground} autoHide>
             {this.renderRooms()}
           </Scrollbar>
         </ul>
