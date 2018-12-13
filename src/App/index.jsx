@@ -28,7 +28,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <div className='app'>
         {this.state.currentScreen === 'ChatScreen' ? (
           <ChatScreen currentUsername={this.state.currentUsername} />
         ) : (
