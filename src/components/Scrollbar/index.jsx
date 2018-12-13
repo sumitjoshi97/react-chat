@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 
 export default class Scrollbar extends Component {
-  renderThumb = ({ style, ...props }) => {
+  renderThumb = ({ style }) => {
     const thumbStyle = {
       backgroundColor: this.props.thumbColor,
       borderRadius: '5px',
