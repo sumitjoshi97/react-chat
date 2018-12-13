@@ -8,15 +8,19 @@ export default class Scrollbar extends Component {
       borderRadius: '5px',
       marginRight: '5px'
     }
-    return <div style={{ ...style, ...thumbStyle }} {...props} />
+    return <div style={{ ...style, ...thumbStyle }} />
   }
 
   render() {
     return (
       <Scrollbars
         renderThumbVertical={this.renderThumb}
-        {...this.props.children}
-      />
+        autoHide={this.props.autoHide}
+        autoHideTimeout={1000}
+        autoHideDuration={400}
+      >
+        {this.props.children}
+      </Scrollbars>
     )
   }
 }
