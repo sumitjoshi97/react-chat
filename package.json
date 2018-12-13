@@ -2,6 +2,11 @@
   "name": "react-slack",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.10.0",
+    "yarn": "1.10.1",
+    "npm": "6.4.1"
+  },
   "dependencies": {
     "@pusher/chatkit-client": "^1.1.1",
     "@pusher/chatkit-server": "^1.0.4",
@@ -15,10 +20,12 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "concurrently \"node ./server.js\" \"react-scripts start\"",
+    "start": "node server.js",
+    "dev": "concurrently \"node ./server.js\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
