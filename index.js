@@ -1,6 +1,5 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const cors = require('cors')
 const Chatkit = require('@pusher/chatkit-server')
 const keys = require('./keys')
 
@@ -13,10 +12,9 @@ const chatkit = new Chatkit.default({
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors())
 
 app.get('/test', (req, res) => {
-  res.status(200).json({ success: 'server test route running' })
+  res.send('server test route running')
 })
 
 app.post('/users', (req, res) => {
@@ -51,11 +49,11 @@ if (process.env.NODE_ENV === 'production') {
   //express will serve index.html file if route is not defined in its API
   const path = require('path')
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
   })
 }
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, err => {
   if (err) {
