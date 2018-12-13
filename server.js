@@ -40,7 +40,19 @@ app.post('/auth', (req, res) => {
   res.status(authData.status).send(authData.body)
 })
 
-const PORT = 3001
+if (process.env.NODE_ENV === 'production') {
+  // express will serve production client build code
+  app.use(express.static('build'))
+
+  //express will serve index.html file if route is not defined in its API
+  const path = require('path')
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  })
+}
+
+const PORT = process.env.PORT || 3001
+
 app.listen(PORT, err => {
   if (err) {
     console.error(err)
