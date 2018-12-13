@@ -35,6 +35,7 @@
 
 .list {
   list-style: none;
+  height: calc(100vh - 60px - 46px - 80px - 20px)
 }
 
 .list-item {
