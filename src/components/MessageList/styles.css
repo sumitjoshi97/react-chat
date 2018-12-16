@@ -1,8 +1,6 @@
 .message-list {
   height: calc(90vh - 60px);
   flex-grow: 1;
-  overflow: hidden;
-  overflow-y: scroll;
 }
 
 .message {
