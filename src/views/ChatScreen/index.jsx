@@ -34,14 +34,19 @@ export default class ChatScreen extends Component {
     })
 
     chatManager
-      .connect()
+      .connect({
+        onAddedToRoom: room => {
+          this.subscribeUserToRoom(this.state.currentUser, room.id)
+          this.forceUpdate()
+        }
+      })
       .then(currentUser => {
         this.setState({ currentUser })
 
         if (currentUser.rooms.length > 0) {
-        return currentUser.rooms.map(room =>
+          return currentUser.rooms.map(room =>
             this.subscribeUserToRoom(currentUser, room.id)
-        )
+          )
         } else {
           return this.subscribeUserToRoom(currentUser, '19393202')
         }
@@ -175,7 +180,7 @@ export default class ChatScreen extends Component {
           ? THEME.LIGHT_BLUE_THEME
           : THEME.LIGHT_RED_THEME
         : THEME.DARK_THEME
-        
+
     const onSubmit = dialogName === 'room' ? this.addRoom : this.addMemberToRoom
     const dialog = isDialogActive ? (
       <Dialog
@@ -196,11 +201,7 @@ export default class ChatScreen extends Component {
     } else {
       return (
         <>
-          <Header
-            currentRoom={currentRoom.name}
-            toggleSettings={this.toggleSettings}
-            theme={theme}
-          />
+          <Header toggleSettings={this.toggleSettings} theme={theme} />
           <div className='chat-screen'>
             <RoomsList
               rooms={currentUser.rooms}
