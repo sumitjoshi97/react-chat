@@ -37,9 +37,14 @@ export default class ChatScreen extends Component {
       .connect()
       .then(currentUser => {
         this.setState({ currentUser })
+
+        if (currentUser.rooms.length > 0) {
         return currentUser.rooms.map(room =>
             this.subscribeUserToRoom(currentUser, room.id)
         )
+        } else {
+          return this.subscribeUserToRoom(currentUser, '19393202')
+        }
       })
       .then(() => {
         const currentRoom = this.state.currentUser.rooms[0]
