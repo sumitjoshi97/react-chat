@@ -29,7 +29,7 @@ export default class ChatScreen extends Component {
       instanceLocator: process.env.REACT_APP_CHATKIT_INSTANCE,
       userId: this.props.currentUsername,
       tokenProvider: new Chatkit.TokenProvider({
-        url: 'http://localhost:3001/auth'
+        url: `${process.env.REACT_APP_SERVER_URI}/auth`
       })
     })
 

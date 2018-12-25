@@ -10,7 +10,7 @@ class App extends Component {
   }
 
   onUsernameSubmit = username => {
-    fetch('http://localhost:3001/users', {
+    fetch(`${process.env.REACT_APP_SERVER_URI}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
