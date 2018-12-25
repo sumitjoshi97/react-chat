@@ -48,7 +48,7 @@ export default class ChatScreen extends Component {
             this.subscribeUserToRoom(currentUser, room.id)
           )
         } else {
-          return this.subscribeUserToRoom(currentUser, '19393202')
+          return this.subscribeUserToRoom(currentUser, '19393208') //subscribing to general room for first time user
         }
       })
       .then(() => {
@@ -64,7 +64,7 @@ export default class ChatScreen extends Component {
   subscribeUserToRoom = (user, roomId) => {
     return user.subscribeToRoom({
       roomId,
-      messageLimit: 100,
+      messageLimit: 30,
       hooks: {
         onMessage: message => {
           this.setState({
@@ -137,7 +137,7 @@ export default class ChatScreen extends Component {
     return this.state.currentUser
       .fetchMessages({
         roomId: room.id,
-        limit: 10
+        limit: 30
       })
       .then(messages => this.setState({ messages }))
       .catch(err => console.error(err))
