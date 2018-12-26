@@ -35,10 +35,7 @@ export default class ChatScreen extends Component {
 
     chatManager
       .connect({
-        onAddedToRoom: room => {
-          this.subscribeUserToRoom(this.state.currentUser, room.id)
-          this.forceUpdate()
-        }
+        onAddedToRoom: room => this.forceUpdate()
       })
       .then(currentUser => {
         this.setState({ currentUser })
@@ -109,6 +106,7 @@ export default class ChatScreen extends Component {
     this.state.currentUser
       .createRoom({ name })
       .then(room => {
+        console.log('add room', room, room.id)
         this.subscribeUserToRoom(this.state.currentUser, room.id)
         this.fetchMessagesForCurrentRoom(room)
         this.setState({ currentRoom: room })
