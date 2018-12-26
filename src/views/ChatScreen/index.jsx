@@ -48,7 +48,10 @@ export default class ChatScreen extends Component {
             this.subscribeUserToRoom(currentUser, room.id)
           )
         } else {
-          return this.subscribeUserToRoom(currentUser, '19393208') //subscribing to general room for first time user
+          return this.subscribeUserToRoom(
+            currentUser,
+            process.env.REACT_APP_GENERAL_ROOM_ID
+          ) //subscribe to general room for first time user
         }
       })
       .then(() => {
