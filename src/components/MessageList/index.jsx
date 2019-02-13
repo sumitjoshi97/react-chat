@@ -11,6 +11,11 @@ export default class MessageList extends Component {
     theme: PropTypes.object.isRequired
   }
 
+
+  renderMessages = () => {
+    const { messages, theme } = this.props
+
+    return messages.map(message => (
     <Message
       key={message.id}
       messageSender={message.senderId}
