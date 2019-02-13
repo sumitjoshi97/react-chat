@@ -5,8 +5,12 @@ import Message from './Message'
 import Scrollbar from '../Scrollbar'
 import './styles.css'
 
-const MessageList = ({ messages, theme }) => {
-  const messagesList = messages.map(message => (
+export default class MessageList extends Component {
+  static propTypes = {
+    messages: PropTypes.array,
+    theme: PropTypes.object.isRequired
+  }
+
     <Message
       key={message.id}
       messageSender={message.senderId}
@@ -15,16 +19,16 @@ const MessageList = ({ messages, theme }) => {
       messageStyle={theme.fontPrimary}
     />
   ))
+  }
+  render() {
   return (
-    <ul className='message-list'>
-      <Scrollbar thumbColor={theme.primaryBackground}>{messagesList}</Scrollbar>
+      <ul className="message-list">
+        <Scrollbar thumbColor={this.props.theme.primaryBackground}>
+          {this.renderMessages()}
+        </Scrollbar>
     </ul>
   )
 }
-
-MessageList.propTypes = {
-  messages: PropTypes.array,
-  theme: PropTypes.object.isRequired
 }
 
 export default MessageList
