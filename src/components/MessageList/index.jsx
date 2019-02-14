@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Message from './Message'
@@ -11,29 +11,28 @@ export default class MessageList extends Component {
     theme: PropTypes.object.isRequired
   }
 
+  componentDidUpdate = () => {}
 
   renderMessages = () => {
     const { messages, theme } = this.props
 
     return messages.map(message => (
-    <Message
-      key={message.id}
-      messageSender={message.senderId}
-      messageText={message.text}
-      senderStyle={theme.fontSecondary}
-      messageStyle={theme.fontPrimary}
-    />
-  ))
+      <Message
+        key={message.id}
+        messageSender={message.senderId}
+        messageText={message.text}
+        senderStyle={theme.fontSecondary}
+        messageStyle={theme.fontPrimary}
+      />
+    ))
   }
   render() {
-  return (
+    return (
       <ul className="message-list">
         <Scrollbar thumbColor={this.props.theme.primaryBackground}>
           {this.renderMessages()}
         </Scrollbar>
-    </ul>
-  )
+      </ul>
+    )
+  }
 }
-}
-
-export default MessageList
