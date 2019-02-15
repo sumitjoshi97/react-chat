@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 import Message from './Message'
@@ -11,7 +12,16 @@ export default class MessageList extends Component {
     theme: PropTypes.object.isRequired
   }
 
-  componentDidUpdate = () => {}
+  static getDerivedStateFromProps = () => {
+    const node = ReactDOM.findDOMNode(this)
+    this.shouldScrollToBottom =
+      node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
+  }
+
+  componentDidUpdate = () => {
+    const node = ReactDOM.findDOMNode(this)
+    node.scrollTop = node.scrollHeight
+  }
 
   renderMessages = () => {
     const { messages, theme } = this.props
