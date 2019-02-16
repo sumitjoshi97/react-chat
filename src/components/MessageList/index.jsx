@@ -12,7 +12,7 @@ export default class MessageList extends Component {
     theme: PropTypes.object.isRequired
   }
 
-  static getDerivedStateFromProps = () => {
+  UNSAFE_componentWillUpdate = () => {
     const node = ReactDOM.findDOMNode(this)
     this.shouldScrollToBottom =
       node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
@@ -38,7 +38,7 @@ export default class MessageList extends Component {
   }
   render() {
     return (
-      <ul className="message-list">
+      <ul className='message-list'>
         <Scrollbar thumbColor={this.props.theme.primaryBackground}>
           {this.renderMessages()}
         </Scrollbar>
