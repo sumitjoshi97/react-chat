@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-slack/precache-manifest.45cdb8c7c549bf66da96c53f3730c2bd.js"
+  "/react-slack/precache-manifest.85a878cf71dd5352172338216e3ac614.js"
 );
 
 workbox.clientsClaim();
