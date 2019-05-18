@@ -1,42 +1,40 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 
 import UserLogin from '../views/UserLogin'
 import ChatScreen from '../views/ChatScreen'
 
-class App extends Component {
-  state = {
-    currentUsername: '',
-    currentScreen: 'LoginScreen'
-  }
+import { Store } from '../store/Store'
 
-  onUsernameSubmit = username => {
-    fetch(`${process.env.REACT_APP_SERVER_URI}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username })
-    })
-      .then(response =>
-        this.setState({
-          currentUsername: username,
-          currentScreen: 'ChatScreen'
-        })
-      )
-      .catch(err => console.error(err))
-  }
+const App = () => {
+  // state = {
+  //   currentUsername: '',
+  //   currentScreen: 'LoginScreen',
+  // }
 
-  render() {
-    return (
-      <div className='app'>
-        {this.state.currentScreen === 'ChatScreen' ? (
-          <ChatScreen currentUsername={this.state.currentUsername} />
-        ) : (
-          <UserLogin onSubmit={this.onUsernameSubmit} />
-        )}
-      </div>
-    )
-  }
+  // onUsernameSubmit = username => {
+  //   fetch(`${process.env.REACT_APP_SERVER_URI}/users`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ username }),
+  //   })
+  //     .then(response =>
+  //       this.setState({
+  //         currentUsername: username,
+  //         currentScreen: 'ChatScreen',
+  //       })
+  //     )
+  //     .catch(err => console.error(err))
+  // }
+
+  const { state } = useContext(Store)
+
+  return (
+    <div className="app">
+      {state.isLogin === true ? <ChatScreen /> : <UserLogin />}
+    </div>
+  )
 }
 
 export default App
