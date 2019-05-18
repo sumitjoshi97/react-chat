@@ -1,39 +1,36 @@
-import React, { Component } from 'react'
+import React, { useState, useContext } from 'react'
 
+import { Store } from '../../store/Store'
+import { onUsernameSubmit } from '../../store/Actions'
 import './styles.css'
 
-export default class UserLogin extends Component {
-  state = {
-    username: ''
-  }
+const UserLogin = () => {
+  const { dispatch } = useContext(Store)
+  const [name, setName] = useState('')
 
-  onChange = e => {
-    this.setState({ username: e.target.value })
-  }
-
-  onSubmit = e => {
-    const { username } = this.state
+  const handleSubmit = e => {
     e.preventDefault()
-
-    if (username.trim().length > 0) {
-      this.props.onSubmit(this.state.username)
-      this.setState({ username: '' })
+    console.log(name)
+    // check if input is not blank and submit name
+    if (name.trim().length > 0) {
+      onUsernameSubmit(name, dispatch)
     }
   }
-  render() {
-    return (
-      <div className='user-login'>
-        <form onSubmit={this.onSubmit} className='login-form'>
-          <h1 className='header'>Login</h1>
-          <input
-            type='text'
-            placeholder='What is your name??'
-            onChange={this.onChange}
-            className='input'
-          />
-          <input type='submit' className='input button' />
-        </form>
-      </div>
-    )
-  }
+
+  return (
+    <div className="user-login">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h1 className="header">Login</h1>
+        <input
+          type="text"
+          placeholder="What is your name??"
+          onChange={e => setName(e.target.value)}
+          className="input"
+        />
+        <input type="submit" className="input button" />
+      </form>
+    </div>
+  )
 }
+
+export default UserLogin
