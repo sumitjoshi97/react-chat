@@ -5,27 +5,27 @@ const DARK_THEME = {
   fontPrimary: '#fff',
   fontSecondary: '#adadad',
   memberOnline: '#2e2',
-  memberOffline: '#2e2e2e'
+  memberOffline: '#2e2e2e',
 }
 
-const LIGHT_BLUE_THEME = {
+const BLUE_THEME = {
   primaryBackground: '#80b7f5',
   secondaryBackground: '#e6e6e6',
   tertiaryBackground: '#dbdbdb',
   fontPrimary: '#000',
   fontSecondary: '#30373f',
   memberOnline: '#227093',
-  memberOffline: '#d2dae2'
+  memberOffline: '#d2dae2',
 }
 
-const LIGHT_RED_THEME = {
+const RED_THEME = {
   primaryBackground: '#ff7979',
   secondaryBackground: '#e6e6e6',
   tertiaryBackground: '#dbdbdb',
   fontPrimary: '#000',
   fontSecondary: '#30373f',
   memberOnline: '#b33939',
-  memberOffline: '#d2dae2'
+  memberOffline: '#d2dae2',
 }
 
-export { DARK_THEME, LIGHT_BLUE_THEME, LIGHT_RED_THEME }
+export { DARK_THEME, BLUE_THEME, RED_THEME }
