@@ -26,9 +26,12 @@ const Dialog = ({ name, ...props }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    props.onSubmit()
-    props.handleDialog()
+    if (dialogInput.trim().length > 0) {
+      props.onSubmit(dialogInput)
+      props.handleDialog()
+    }
   }
+
   return (
     <div className="main">
       <form
@@ -39,7 +42,7 @@ const Dialog = ({ name, ...props }) => {
         <button onClick={props.handleDialog} className="cancel">
           x
         </button>
-        <h1 className="header">{`Add new ${this.props.name}`}</h1>
+        <h1 className="header">{`Add new ${name}`}</h1>
         <input
           type="text"
           placeholder="Type here.."
@@ -60,7 +63,7 @@ const Dialog = ({ name, ...props }) => {
 }
 
 Dialog.propTypes = {
-  toggleDialog: PropTypes.func.isRequired,
+  // toggleDialog: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 }
 
