@@ -15,7 +15,7 @@
   height: 20rem;
   width: 20rem;
   color: #252525;
-  background: #e6e6e6;
+  background: #fafafa;
   border-radius: 4px;
   box-shadow: 4px 4px 20px rgba(12, 67, 150, 0.3);
 }
@@ -32,10 +32,11 @@ input {
   margin: 10px;
   text-align: center;
   color: #252525;
-  background: #dbdbdb;
+  background: #ececec;
 }
 
-input:focus, input:active {
+input:focus,
+input:active {
   outline: none;
 }
 
