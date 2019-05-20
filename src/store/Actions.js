@@ -42,6 +42,11 @@ export const onChangeTheme = (theme, currentTheme, dispatch) => {
 /////////////////////////////////////////////////////////////////
 //chatkit actions
 
+const setMessages = messages => ({
+  type: 'SET_MESSAGES',
+  messages,
+})
+
 const setCurrentRoom = room => ({
   type: 'SET_CURRENT_ROOM',
   currentRoom: room,
@@ -90,7 +95,7 @@ export const connectToChatkit = (chatManager, dispatch) => {
       dispatch(setCurrentRoom(currentRoom))
     })
     .then(() => {
-      //fetchMessagesForCurrentRoom(currentRoom)
+      fetchMessagesForCurrentRoom(currentRoom)
     })
     .catch(err => console.error(err))
 }
@@ -105,4 +110,70 @@ export const subscribeUserToRoom = (user, roomId, dispatch) => {
       onUserJoined: () => this.forceUpdate(),
     },
   })
+}
+
+// {
+//   this.setState({
+//     messages: [...this.state.messages, message],
+//   })
+// },
+// onUserStartedTyping: user => {
+//   this.setState({
+//     usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.name],
+//   })
+// },
+// onUserStoppedTyping: user => {
+//   this.setState({
+//     usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
+//       username => username !== user.name
+//     ),
+//   })
+// },
+
+export const fetchMessagesForCurrentRoom = (currentUser, room, dispatch) => {
+  currentUser
+    .fetchMessages({
+      roomId: room.id,
+      limit: 30,
+    })
+    .then(messages => dispatch(setMessages(messages)))
+}
+
+export const handleCurrentRoom = (user, roomId, dispatch) => {
+  const room = user.rooms.find(room => room.id === roomId)
+  dispatch(setCurrentRoom(room))
+  fetchMessagesForCurrentRoom(user, room, dispatch)
+}
+
+export const sendMessage = (user, text) => {
+  user.sendMessage({
+    text,
+    roomId: this.state.currentRoom.id,
+  })
+}
+
+export const sendTypingEvent = () => {
+  this.state.currentUser
+    .isTypingIn({ roomId: this.state.currentRoom.id })
+    .catch(error => console.error('error', error))
+}
+
+export const addRoom = (user, roomName, dispatch) => {
+  user
+    .createRoom({ roomName })
+    .then(room => {
+      subscribeUserToRoom(user, room.id)
+      fetchMessagesForCurrentRoom(room)
+      dispatch(setCurrentRoom(room))
+    })
+    .catch(err => console.error(err))
+}
+
+export const addMemberToRoom = (user, room, member) => {
+  user
+    .addUserToRoom({
+      userId: member,
+      roomId: room.id,
+    })
+    .catch(err => console.error(err))
 }
