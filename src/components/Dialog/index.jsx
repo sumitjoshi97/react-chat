@@ -1,72 +1,67 @@
-import React, { Component } from 'react'
+import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
+import { Store } from '../../store/Store'
 import './styles.css'
 
-export default class Dialog extends Component {
-  static propTypes = {
-    toggleDialog: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    theme: PropTypes.object.isRequired
+const Dialog = ({ name, ...props }) => {
+  const { state } = useContext(Store)
+  const { theme } = state
+  const styles = {
+    dialogStyles: {
+      background: theme.secondaryBackground,
+      color: theme.fontPrimary,
+    },
+    inputStyles: {
+      background: theme.tertiaryBackground,
+      color: theme.fontPrimary,
+    },
+    buttonStyles: {
+      background: theme.primaryBackground,
+      color: theme.fontPrimary,
+    },
   }
 
-  state = {
-    text: ''
-  }
+  const [dialogInput, setDialogInput] = useState('')
 
-  onInputChange = e => {
-    this.setState({ text: e.target.value })
-  }
-
-  onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    this.props.onSubmit(this.state.text)
-    this.props.toggleDialog()
+    props.onSubmit()
+    props.handleDialog()
   }
-
-  render() {
-    const { theme } = this.props
-
-    const styles = {
-      dialogStyles: {
-        background: theme.secondaryBackground,
-        color: theme.fontPrimary
-      },
-      inputStyles: {
-        background: theme.tertiaryBackground,
-        color: theme.fontPrimary
-      },
-      buttonStyles: {
-        background: theme.primaryBackground,
-        color: theme.fontPrimary
-      }
-    }
-    return (
-      <div className='main'>
-        <form
-          onSubmit={this.onSubmit}
-          className='dialog-form'
-          style={styles.dialogStyles}
-        >
-          <button onClick={this.props.toggleDialog} className='cancel'>
-            x
-          </button>
-          <h1 className='header'>{`Add new ${this.props.name}`}</h1>
-          <input
-            type='text'
-            placeholder='Type here..'
-            onChange={this.onInputChange}
-            className='input'
-            style={styles.inputStyles}
-          />
-          <input
-            type='submit'
-            className='input button'
-            style={styles.buttonStyles}
-            value='Add'
-          />
-        </form>
-      </div>
-    )
-  }
+  return (
+    <div className="main">
+      <form
+        onSubmit={handleSubmit}
+        className="dialog-form"
+        style={styles.dialogStyles}
+      >
+        <button onClick={props.handleDialog} className="cancel">
+          x
+        </button>
+        <h1 className="header">{`Add new ${this.props.name}`}</h1>
+        <input
+          type="text"
+          placeholder="Type here.."
+          value={dialogInput}
+          onChange={e => setDialogInput(e.target.value)}
+          className="input"
+          style={styles.inputStyles}
+        />
+        <input
+          type="submit"
+          className="input button"
+          style={styles.buttonStyles}
+          value="Add"
+        />
+      </form>
+    </div>
+  )
 }
+
+Dialog.propTypes = {
+  toggleDialog: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+}
+
+export default Dialog
