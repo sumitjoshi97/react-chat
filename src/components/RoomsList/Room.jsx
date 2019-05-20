@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 
-class Room extends PureComponent {
+class Room extends Component {
   static propTypes = {
     roomName: PropTypes.string,
     selectionColor: PropTypes.string.isRequired,
-    hoverColor: PropTypes.string.isRequired
+    hoverColor: PropTypes.string.isRequired,
   }
 
   render() {
@@ -15,12 +15,12 @@ class Room extends PureComponent {
     const styles = {
       roomStyles: {
         ':hover': {
-          background: hoverColor
-        }
+          background: hoverColor,
+        },
       },
       currentRoomStyles: {
-        background: selectionColor
-      }
+        background: selectionColor,
+      },
     }
 
     const roomStyle = isCurrentRoom
@@ -29,7 +29,7 @@ class Room extends PureComponent {
 
     return (
       <li
-        className='list-item'
+        className="list-item"
         style={roomStyle}
         onClick={this.props.setCurrentRoom}
       >
