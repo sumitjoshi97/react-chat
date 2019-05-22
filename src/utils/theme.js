@@ -10,8 +10,8 @@ const DARK_THEME = {
 
 const BLUE_THEME = {
   primaryBackground: '#80b7f5',
-  secondaryBackground: '#e6e6e6',
-  tertiaryBackground: '#dbdbdb',
+  secondaryBackground: '#fafafa',
+  tertiaryBackground: '#ececec',
   fontPrimary: '#000',
   fontSecondary: '#30373f',
   memberOnline: '#227093',
@@ -20,8 +20,8 @@ const BLUE_THEME = {
 
 const RED_THEME = {
   primaryBackground: '#ff7979',
-  secondaryBackground: '#e6e6e6',
-  tertiaryBackground: '#dbdbdb',
+  secondaryBackground: '#fafafa',
+  tertiaryBackground: '#ececec',
   fontPrimary: '#000',
   fontSecondary: '#30373f',
   memberOnline: '#b33939',
