@@ -33,7 +33,7 @@ const changeTheme = theme => ({
   theme,
 })
 
-export const onChangeTheme = (theme, currentTheme, dispatch) => {
+export const onChangeTheme = (currentTheme, theme, dispatch) => {
   if (theme !== currentTheme) {
     dispatch(changeTheme(theme))
   }
@@ -42,9 +42,8 @@ export const onChangeTheme = (theme, currentTheme, dispatch) => {
 /////////////////////////////////////////////////////////////////
 //chatkit actions
 
-const setMessages = messages => ({
-  type: 'SET_MESSAGES',
-  messages,
+const setClearMessages = () => ({
+  type: 'SET_CLEAR_MESSAGES',
 })
 
 const setCurrentRoom = room => ({
@@ -57,123 +56,173 @@ const setCurrentUser = user => ({
   currentUser: user,
 })
 
+const logoutSuccess = () => ({
+  type: 'LOGOUT_SUCCESS',
+})
+
+const setClearCurrentUsersTyping = () => ({
+  type: 'SET_CLEAR_CURRENT_USERS_TYPING',
+})
+
+const addToCurrentUsersTyping = user => ({
+  type: 'ADD_TO_CURRENT_USERS_TYPING',
+  user,
+})
+
+const removeFromCurrentUsersTyping = user => ({
+  type: 'REMOVE_FROM_CURRENT_USERS_TYPING',
+  user,
+})
+
 const addMessage = message => ({
   type: 'ADD_MESSAGE',
   message,
 })
 
-export const connectToChatkit = (chatManager, dispatch) => {
-  let currentUser
-  let currentRoom
+const forceUpdate = () => ({
+  type: 'FORCE_UPDATE',
+})
 
-  chatManager
-    .connect({
-      onAddedToRoom: () => this.forceUpdate(),
-      onUserJoinedRoom: () => this.forceUpdate(),
+export const connectToChatkit = async (chatManager, dispatch) => {
+  try {
+    const currentUser = await chatManager.connect({
+      onAddedToRoom: () => dispatch(forceUpdate()),
+      onUserStartedTyping: (room, user) => {
+        const userTyping = {
+          name: user.name,
+          roomId: room.id,
+        }
+        dispatch(addToCurrentUsersTyping(userTyping))
+      },
+      onUserStoppedTyping: (room, user) => {
+        const userTyping = {
+          name: user.name,
+          roomId: room.id,
+        }
+        console.log(userTyping)
+        dispatch(removeFromCurrentUsersTyping(userTyping))
+      },
     })
-    .then(user => {
-      currentUser = user
-      console.log(user)
-      dispatch(setCurrentUser(currentUser))
-    })
-    .then(() => {
-      if (currentUser.rooms.length > 0) {
-        currentUser.rooms.map(room =>
-          subscribeUserToRoom(currentUser, room.id, dispatch)
-        )
-      } else {
-        //subscribe to general room for first time user
-        subscribeUserToRoom(
-          currentUser,
-          process.env.REACT_APP_GENERAL_ROOM_ID,
-          dispatch
-        )
-      }
-    })
-    .then(() => {
-      currentRoom = currentUser.rooms[0]
-      dispatch(setCurrentRoom(currentRoom))
-    })
-    .then(() => {
-      fetchMessagesForCurrentRoom(currentRoom)
-    })
-    .catch(err => console.error(err))
+
+    await dispatch(setCurrentUser(currentUser))
+
+    const userRooms = currentUser.roomStore.rooms
+    const currentRoomId =
+      (await Object.keys(userRooms).length) > 0
+        ? Object.keys(userRooms)[0]
+        : process.env.REACT_APP_GENERAL_ROOM_ID
+
+    await subscribeUserToRoom(currentUser, currentRoomId, dispatch)
+
+    // if ((await Object.keys(userRooms).length) > 0) {
+    //   Object.keys(userRooms).map(roomId =>
+    //     subscribeUserToRoom(currentUser, roomId, dispatch)
+    //   )
+    // } else {
+    //   await subscribeUserToRoom(
+    //     currentUser,
+    //     process.env.REACT_APP_GENERAL_ROOM_ID,
+    //     dispatch
+    //   )
+    // }
+
+    const currentRoom = await currentUser.roomStore.rooms[
+      Object.keys(currentUser.roomStore.rooms)[0]
+    ]
+
+    await dispatch(setCurrentRoom(currentRoom))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-export const subscribeUserToRoom = (user, roomId, dispatch) => {
-  return user.subscribeToRoomMultipart({
-    roomId,
-    messageLimit: 30,
-    hooks: {
-      onMessage: message => dispatch(addMessage(message)),
-      onPresenceChange: () => this.forceUpdate(),
-      onUserJoined: () => this.forceUpdate(),
-    },
-  })
+export const subscribeUserToRoom = async (user, roomId, dispatch) => {
+  try {
+    await dispatch(setClearMessages())
+    await user.subscribeToRoomMultipart({
+      roomId,
+      messageLimit: 30,
+      hooks: {
+        onMessage: message => dispatch(addMessage(message)),
+        onPresenceChanged: () => dispatch(forceUpdate()),
+        onUserJoined: () => dispatch(forceUpdate()),
+      },
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-// {
-//   this.setState({
-//     messages: [...this.state.messages, message],
-//   })
-// },
-// onUserStartedTyping: user => {
-//   this.setState({
-//     usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.name],
-//   })
-// },
-// onUserStoppedTyping: user => {
-//   this.setState({
-//     usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
-//       username => username !== user.name
-//     ),
-//   })
-// },
+export const logoutUser = dispatch => {
+  dispatch(logoutSuccess())
+}
 
-export const fetchMessagesForCurrentRoom = (currentUser, room, dispatch) => {
-  currentUser
-    .fetchMessages({
+//**************************** */ --  remove it later-- **************************************
+// export const fetchMessagesForCurrentRoom = async (user, room, dispatch) => {
+//   try {
+//     const messages = await user.fetchMultipartMessages({
+//       roomId: room.id,
+//       limit: 20,
+//     })
+//     await dispatch(setMessages(messages))
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
+// *********************************************************************************************
+
+export const handleCurrentRoom = async (user, roomId, dispatch) => {
+  try {
+    const userRooms = user.roomStore.rooms
+    const currentRoom =
+      userRooms[Object.keys(userRooms).find(id => id === roomId)]
+    await dispatch(setClearCurrentUsersTyping())
+    await subscribeUserToRoom(user, roomId, dispatch)
+    await dispatch(setCurrentRoom(currentRoom))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const sendMessage = async (user, room, message) => {
+  try {
+    await user.sendSimpleMessage({
+      text: message,
       roomId: room.id,
-      limit: 30,
     })
-    .then(messages => dispatch(setMessages(messages)))
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-export const handleCurrentRoom = (user, roomId, dispatch) => {
-  const room = user.rooms.find(room => room.id === roomId)
-  dispatch(setCurrentRoom(room))
-  fetchMessagesForCurrentRoom(user, room, dispatch)
+export const sendTypingEvent = async (user, roomId) => {
+  try {
+    if (user.hasOwnProperty('isTypingIn')) {
+      await user.isTypingIn({ roomId })
+    }
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-export const sendMessage = (user, text) => {
-  user.sendMessage({
-    text,
-    roomId: this.state.currentRoom.id,
-  })
+export const addRoom = async (user, roomName, dispatch) => {
+  try {
+    const room = await user.createRoom({ name: roomName })
+    await subscribeUserToRoom(user, room.id, dispatch)
+    await dispatch(setClearCurrentUsersTyping())
+    await dispatch(setCurrentRoom(room))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-export const sendTypingEvent = () => {
-  this.state.currentUser
-    .isTypingIn({ roomId: this.state.currentRoom.id })
-    .catch(error => console.error('error', error))
-}
-
-export const addRoom = (user, roomName, dispatch) => {
-  user
-    .createRoom({ roomName })
-    .then(room => {
-      subscribeUserToRoom(user, room.id)
-      fetchMessagesForCurrentRoom(room)
-      dispatch(setCurrentRoom(room))
-    })
-    .catch(err => console.error(err))
-}
-
-export const addMemberToRoom = (user, room, member) => {
-  user
-    .addUserToRoom({
+export const addMemberToRoom = async (user, room, member) => {
+  try {
+    await user.addUserToRoom({
       userId: member,
       roomId: room.id,
     })
-    .catch(err => console.error(err))
+  } catch (err) {
+    console.error(err)
+  }
 }
