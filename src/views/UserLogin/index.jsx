@@ -10,8 +10,6 @@ const UserLogin = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(name)
-    // check if input is not blank and submit name
     if (name.trim().length > 0) {
       onUsernameSubmit(name, dispatch)
     }
@@ -23,11 +21,11 @@ const UserLogin = () => {
         <h1 className="header">Login</h1>
         <input
           type="text"
-          placeholder="What is your name??"
+          placeholder="What's your name??"
           onChange={e => setName(e.target.value)}
           className="input"
         />
-        <input type="submit" className="input button" />
+        <input type="submit" className="input button" value="Login" />
       </form>
     </div>
   )
