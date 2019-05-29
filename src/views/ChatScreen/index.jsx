@@ -53,6 +53,10 @@ const ChatScreen = () => {
     sendMessage(currentUser, currentRoom, message)
   }
 
+  const handleTypingIndicator = () => {
+    sendTypingEvent(currentUser, currentRoom.id)
+  }
+
   const handleDialog = (name = '') => {
     toggleDialog(!isDialogActive)
     setDialog(name)
