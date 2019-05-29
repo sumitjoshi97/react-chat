@@ -1,11 +1,7 @@
-import React, { useContext } from 'react'
-import { Store } from '../../store/Store'
+import React from 'react'
 import './styles.css'
 
-const Header = ({ toggleSettings }) => {
-  const { state } = useContext(Store)
-  const { theme } = state
-
+const Header = ({ user, theme, ...props }) => {
   const headerStyles = {
     background: theme.primaryBackground,
     color: theme.fontPrimary,
@@ -17,7 +13,7 @@ const Header = ({ toggleSettings }) => {
       <button
         className="settings-header"
         style={{ color: theme.fontPrimary }}
-        onClick={toggleSettings}
+        onClick={props.handleSettings}
       >
         settings
       </button>
