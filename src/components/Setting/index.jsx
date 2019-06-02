@@ -1,23 +1,41 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import Radium from 'radium'
+
+import { onChangeTheme, logoutUser } from '../../store/Actions'
 
 import './styles.css'
+import ThemeHandler from './ThemeHandler'
 
-export class Setting extends Component {
-  static propTypes = {
-    setTheme: PropTypes.func.isRequired
+const Setting = ({ currentTheme, ...props }) => {
+  const handleTheme = theme => {
+    onChangeTheme(currentTheme, theme, props.dispatch)
   }
 
-  onClick = theme => {
-    this.props.setTheme(theme)
-    this.props.toggleSettings()
+  const fontStyles = {
+    color: currentTheme.fontPrimary,
   }
-  render() {
-    return (
-      <div className='settings'>
-        <div className='cancel' onClick={this.props.toggleSettings}>
-          x
-        </div>
+
+  const buttonStyles = {
+    background: currentTheme.secondaryBackground,
+    color: currentTheme.fontPrimary,
+    ':hover': {
+      background: currentTheme.primaryBackground,
+    },
+  }
+
+  return (
+    <div
+      className="settings"
+      style={{ background: currentTheme.secondaryBackground }}
+    >
+      <div className="cancel" onClick={props.handleSettings}>
+        x
+      </div>
+      <div className="settings-content">
+        <h2 className="header-primary" style={fontStyles}>
+          Settings
+        </h2>
         <div className="break" />
         <ThemeHandler handleTheme={handleTheme} style={fontStyles} />
         <button
@@ -27,10 +45,15 @@ export class Setting extends Component {
         >
           Logout
         </button>
-        </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default Setting
+Setting.propTypes = {
+  currentTheme: PropTypes.object.isRequired,
+  handleTheme: PropTypes.func.isRequired,
+  handleSettings: PropTypes.func.isRequired,
+}
+
+export default Radium(Setting)
