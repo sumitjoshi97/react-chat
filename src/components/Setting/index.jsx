@@ -21,6 +21,12 @@ export class Setting extends Component {
         <div className="break" />
         <ThemeHandler handleTheme={handleTheme} style={fontStyles} />
         <button
+          className="logout-btn"
+          style={buttonStyles}
+          onClick={() => logoutUser(props.dispatch)}
+        >
+          Logout
+        </button>
         </div>
       </div>
     )
