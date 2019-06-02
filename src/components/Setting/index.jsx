@@ -18,17 +18,9 @@ export class Setting extends Component {
         <div className='cancel' onClick={this.props.toggleSettings}>
           x
         </div>
-        <h2 className='header'>Select a theme</h2>
-        <div className='themes'>
-          <div
-            className='theme-box dark'
-            onClick={() => this.onClick('dark')}
-          />
-          <div
-            className='theme-box blue'
-            onClick={() => this.onClick('blue')}
-          />
-          <div className='theme-box red' onClick={() => this.onClick('red')} />
+        <div className="break" />
+        <ThemeHandler handleTheme={handleTheme} style={fontStyles} />
+        <button
         </div>
       </div>
     )
