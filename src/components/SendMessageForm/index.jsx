@@ -1,61 +1,56 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import './styles.css'
 
-export default class SendMessageForm extends Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func
+const SendMessageForm = ({ theme, ...props }) => {
+  const [message, setMessage] = useState('')
+
+  const styles = {
+    inputStyles: {
+      background: theme.tertiaryBackground,
+      color: theme.fontPrimary,
+    },
+    buttonStyles: {
+      background: theme.primaryBackground,
+      color: theme.fontPrimary,
+    },
   }
 
-  state = {
-    text: ''
+  const handleChange = e => {
+    props.handleTypingIndicator()
+
+    setMessage(e.target.value)
   }
 
-  onChange = e => {
-    this.setState({ text: e.target.value })
-    if (this.props.onChange) {
-      this.props.onChange()
-    }
-  }
-
-  onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    this.props.onSubmit(this.state.text)
-    this.setState({ text: '' })
+    props.handleMessageForm(message)
+    setMessage('')
   }
 
-  render() {
-    const { theme } = this.props
-
-    const styles = {
-      inputStyles: {
-        background: theme.tertiaryBackground,
-        color: theme.fontPrimary
-      },
-      buttonStyles: {
-        background: theme.primaryBackground,
-        color: theme.fontPrimary
-      }
-    }
-
-    return (
-      <form onSubmit={this.onSubmit} className='message-form'>
-        <input
-          type='text'
-          placeholder='Enter message to send..'
-          onChange={this.onChange}
-          value={this.state.text}
-          className='message-input'
-          style={styles.inputStyles}
-        />
-        <input
-          type='submit'
-          className='message-send button'
-          style={styles.buttonStyles}
-          value='send..'
-        />
-      </form>
-    )
-  }
+  return (
+    <form onSubmit={handleSubmit} className="message-form">
+      <input
+        type="text"
+        placeholder="Enter message to send.."
+        onChange={handleChange}
+        value={message}
+        className="message-input"
+        style={styles.inputStyles}
+      />
+      <input
+        type="submit"
+        className="message-send button"
+        style={styles.buttonStyles}
+        value="send.."
+      />
+    </form>
+  )
 }
+
+SendMessageForm.propTypes = {
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+}
+
+export default SendMessageForm
