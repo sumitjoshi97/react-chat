@@ -1,14 +1,22 @@
 import React from 'react'
 
-const TypingIndicator = ({ usersWhoAreTyping }) => {
+const TypingIndicator = ({ currentUsersTyping, currentRoomId, color }) => {
+  const usersTyping = currentUsersTyping.filter(
+    user => user.roomId === currentRoomId
+  )
+
   const indicator =
-    usersWhoAreTyping.length > 0
-      ? usersWhoAreTyping.length > 1
-        ? `${usersWhoAreTyping[0]} and ${usersWhoAreTyping[1]},... are typing`
-        : `${usersWhoAreTyping[0]} is typing`
+    usersTyping.length > 0
+      ? usersTyping.length > 1
+        ? `${usersTyping[0].name} and ${usersTyping[1].name},... are typing`
+        : `${usersTyping[0].name} is typing`
       : null
 
-  return <p className='typing-indicator'>{indicator}</p>
+  return (
+    <p className="typing-indicator" style={{ color }}>
+      {indicator}
+    </p>
+  )
 }
 
 export default TypingIndicator
