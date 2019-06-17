@@ -1,17 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
 import Chatkit from '@pusher/chatkit-client'
 
-import { Store } from '../../store/Store'
-
+import Home from './Home'
 import Dialog from '../../components/Dialog'
-import Header from '../../components/Header'
-import RoomsList from '../../components/RoomsList'
-import MembersList from '../../components/MembersList'
-import Messagelist from '../../components/MessageList'
-import TypingIndicator from '../../components/TypingIndicator'
-import SendMessageForm from '../../components/SendMessageForm'
 import Setting from '../../components/Setting'
 import './styles.css'
+
+import { Store } from '../../store/Store'
 import {
   connectToChatkit,
   addRoom,
@@ -77,13 +72,13 @@ const ChatScreen = () => {
     toggleSettingPane(!isSettingActive)
   }
 
-  const dialog = isDialogActive ? (
+  const dialog = isDialogActive && (
     <Dialog
       name={activeDialog}
       handleDialog={handleDialog}
       onSubmit={onDialogSubmit}
     />
-  ) : null
+  )
 
   if (isSettingActive) {
     return (
@@ -95,49 +90,21 @@ const ChatScreen = () => {
     )
   } else {
     return (
-      <>
-        <Header theme={theme} handleSettings={handleSettings} />
-        <div className="chat-screen">
-          <RoomsList
-            handleDialog={handleDialog}
-            theme={theme}
-            currentUser={currentUser}
-            currentRoom={currentRoom}
-            dispatch={dispatch}
-          />
-
-          <div
-            className="chat"
-            style={{ background: theme.secondaryBackground }}
-          >
-            <Messagelist messages={messages} theme={theme} />
-            <div className="chat-form">
-              <TypingIndicator
-                currentUsersTyping={currentUsersTyping}
-                currentRoomId={currentRoom.id}
-                color={theme.fontSecondary}
-              />
-              <SendMessageForm
-                theme={theme}
-                handleTypingIndicator={() =>
-                  sendTypingEvent(currentUser, currentRoom.id)
-                }
-                handleMessageForm={handleMessageForm}
-              />
-            </div>
-          </div>
-
-          <MembersList
-            handleDialog={handleDialog}
-            theme={theme}
-            members={currentRoom.users}
-          />
-        </div>
-        {dialog}
-      </>
+      <Home
+        currentUser={currentUser}
+        currentRoom={currentRoom}
+        messages={messages}
+        currentUsersTyping={currentUsersTyping}
+        dialog={dialog}
+        dispatch={dispatch}
+        handleSettings={handleSettings}
+        handleDialog={handleDialog}
+        handleTypingIndicator={handleTypingIndicator}
+        handleMessageForm={handleMessageForm}
+        theme={theme}
+      />
     )
   }
 }
 
 export default ChatScreen
-
