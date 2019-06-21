@@ -21,7 +21,9 @@
 
 .typing-indicator {
   height: 10px;
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 14px 14px 14px;
 }
 
 /* side columns */
@@ -35,7 +37,7 @@
 
 .list {
   list-style: none;
-  height: calc(100vh - 60px - 46px - 80px - 20px)
+  height: calc(100vh - 60px - 46px - 80px - 20px);
 }
 
 .list-item {
