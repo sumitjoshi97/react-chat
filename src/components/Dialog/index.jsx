@@ -1,12 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Store } from '../../store/Store'
 import './styles.css'
 
-const Dialog = ({ name, ...props }) => {
-  const { state } = useContext(Store)
-  const { theme } = state
+const Dialog = ({ name, theme, ...props }) => {
   const styles = {
     dialogStyles: {
       background: theme.secondaryBackground,
@@ -63,8 +60,9 @@ const Dialog = ({ name, ...props }) => {
 }
 
 Dialog.propTypes = {
-  // toggleDialog: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  handleDialog: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default Dialog
