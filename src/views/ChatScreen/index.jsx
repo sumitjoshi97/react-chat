@@ -13,7 +13,7 @@ import {
   addMemberToRoom,
   sendMessage,
   sendTypingEvent,
-} from '../../store/Actions'
+} from '../../store/actions'
 
 const ChatScreen = () => {
   const { state, dispatch } = useContext(Store)
@@ -75,6 +75,7 @@ const ChatScreen = () => {
   const dialog = isDialogActive && (
     <Dialog
       name={activeDialog}
+      theme={theme}
       handleDialog={handleDialog}
       onSubmit={onDialogSubmit}
     />
