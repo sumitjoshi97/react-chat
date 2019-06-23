@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const TypingIndicator = ({ currentUsersTyping, currentRoomId, color }) => {
   const usersTyping = currentUsersTyping.filter(
@@ -17,6 +18,12 @@ const TypingIndicator = ({ currentUsersTyping, currentRoomId, color }) => {
       {indicator}
     </p>
   )
+}
+
+TypingIndicator.propTypes = {
+  currentUsersTyping: PropTypes.array.isRequired,
+  currentRoomId: PropTypes.string,
+  color: PropTypes.string,
 }
 
 export default TypingIndicator

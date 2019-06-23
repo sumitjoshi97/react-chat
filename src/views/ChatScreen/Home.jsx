@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 import Header from '../../components/Header'
 import RoomsList from '../../components/RoomsList'
 import MembersList from '../../components/MembersList'
@@ -55,4 +55,19 @@ const Home = props => {
     </>
   )
 }
+
+Home.propTypes = {
+  currentUser: PropTypes.object,
+  currentRoom: PropTypes.object,
+  messages: PropTypes.array,
+  currentUsersTyping: PropTypes.array,
+  dialog: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  theme: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  handleSettings: PropTypes.func.isRequired,
+  handleDialog: PropTypes.func.isRequired,
+  handleMessageForm: PropTypes.func.isRequired,
+  handleTypingIndicator: PropTypes.func.isRequired,
+}
+
 export default Home
