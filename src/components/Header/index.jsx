@@ -1,7 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import './styles.css'
 
-const Header = ({ user, theme, ...props }) => {
+const Header = ({ theme, ...props }) => {
   const headerStyles = {
     background: theme.primaryBackground,
     color: theme.fontPrimary,
@@ -19,6 +21,11 @@ const Header = ({ user, theme, ...props }) => {
       </button>
     </div>
   )
+}
+
+Header.propTypes = {
+  theme: PropTypes.object.isRequired,
+  handleSettings: PropTypes.func.isRequired,
 }
 
 export default Header
