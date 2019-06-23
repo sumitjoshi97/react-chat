@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 
-import { onChangeTheme, logoutUser } from '../../store/Actions'
+import { onChangeTheme, logoutUser } from '../../store/actions'
 
 import './styles.css'
 import ThemeHandler from './ThemeHandler'

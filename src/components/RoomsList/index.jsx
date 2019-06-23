@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { handleCurrentRoom, addRoom } from '../../store/Actions'
+import { handleCurrentRoom } from '../../store/actions'
 import Room from './Room'
 import Scrollbar from '../Scrollbar'
 
