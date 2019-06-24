@@ -52,9 +52,9 @@ const MembersList = ({ members, theme, ...props }) => {
 }
 
 MembersList.propTypes = {
-  // members: PropTypes.array,
-  // toggleDialog: PropTypes.func.isRequired,
-  // theme: PropTypes.object.isRequired,
+  members: PropTypes.array,
+  theme: PropTypes.object.isRequired,
+  toggleDialog: PropTypes.func,
 }
 
 export default MembersList

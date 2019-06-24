@@ -49,8 +49,9 @@ const SendMessageForm = ({ theme, ...props }) => {
 }
 
 SendMessageForm.propTypes = {
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
+  theme: PropTypes.object.isRequired,
+  handleMessageForm: PropTypes.func.isRequired,
+  handleTypingIndicator: PropTypes.func.isRequired,
 }
 
 export default SendMessageForm

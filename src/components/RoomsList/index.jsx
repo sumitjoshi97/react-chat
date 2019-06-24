@@ -53,4 +53,11 @@ const RoomsList = ({ currentUser, currentRoom, theme, ...props }) => {
   )
 }
 
+RoomsList.propTypes = {
+  currentUser: PropTypes.object.isRequired,
+  currentRoom: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+  handleDialog: PropTypes.func.isRequired,
+}
+
 export default RoomsList

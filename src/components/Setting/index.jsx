@@ -52,8 +52,7 @@ const Setting = ({ currentTheme, ...props }) => {
 
 Setting.propTypes = {
   currentTheme: PropTypes.object.isRequired,
-  handleTheme: PropTypes.func.isRequired,
-  handleSettings: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 
 export default Radium(Setting)

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 
 import Message from './Message'
 import Scrollbar from '../Scrollbar'
@@ -33,6 +34,11 @@ const MessageList = ({ messages, theme }) => {
       </Scrollbar>
     </ul>
   )
+}
+
+MessageList.propTypes = {
+  messages: PropTypes.array.isRequired,
+  theme: PropTypes.object.isRequired,
 }
 
 export default MessageList

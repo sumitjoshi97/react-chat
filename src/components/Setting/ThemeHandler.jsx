@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import * as themes from '../../utils/theme'
 
 const ThemeHandler = props => (
@@ -22,5 +23,9 @@ const ThemeHandler = props => (
     </div>
   </div>
 )
+
+ThemeHandler.propTypes = {
+  handleTheme: PropTypes.func.isRequired,
+}
 
 export default ThemeHandler
