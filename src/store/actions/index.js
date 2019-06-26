@@ -10,3 +10,5 @@ export {
 } from './chatkitActions'
 
 export { onChangeTheme } from './themeActions'
+
+export { clearError } from './errorActions'
