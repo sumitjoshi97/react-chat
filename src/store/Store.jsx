@@ -11,6 +11,7 @@ const initialState = {
   currentUsersTyping: [],
   forceUpdateCount: 0,
   theme: themes.BLUE_THEME,
+  isError: false,
 }
 
 export const Store = createContext(initialState)
@@ -54,6 +55,12 @@ const reducer = (state, action) => {
 
     case actionTypes.CHANGE_THEME:
       return { ...state, theme: action.theme }
+
+    case actionTypes.SET_ERROR:
+      return { ...state, isError: true }
+
+    case actionTypes.SET_CLEAR_ERROR:
+      return { ...state, isError: false }
 
     case actionTypes.FORCE_UPDATE:
       return { ...state, forceUpdateCount: state.forceUpdateCount + 1 }
