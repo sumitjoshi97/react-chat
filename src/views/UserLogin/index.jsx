@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react'
 
+import ErrorNotification from '../../components/ErrorNotification'
 import { Store } from '../../store/Store'
-import { onUsernameSubmit } from '../../store/Actions'
+import { onUsernameSubmit } from '../../store/actions'
 import './styles.css'
 
 const UserLogin = () => {
-  const { dispatch } = useContext(Store)
+  const { state, dispatch } = useContext(Store)
+
   const [name, setName] = useState('')
 
   const handleSubmit = e => {
@@ -14,6 +16,10 @@ const UserLogin = () => {
       onUsernameSubmit(name, dispatch)
     }
   }
+
+  const errorNotification = state.isError && (
+    <ErrorNotification theme={state.theme} dispatch={dispatch} />
+  )
 
   return (
     <div className="user-login">
@@ -27,6 +33,7 @@ const UserLogin = () => {
         />
         <input type="submit" className="input button" value="Login" />
       </form>
+      {errorNotification}
     </div>
   )
 }

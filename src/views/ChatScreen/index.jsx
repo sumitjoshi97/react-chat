@@ -14,6 +14,7 @@ import {
   sendMessage,
   sendTypingEvent,
 } from '../../store/actions'
+import ErrorNotification from '../../components/ErrorNotification'
 
 const ChatScreen = () => {
   const { state, dispatch } = useContext(Store)
@@ -25,6 +26,7 @@ const ChatScreen = () => {
     messages,
     currentUsersTyping,
     theme,
+    isError,
   } = state
 
   const [isDialogActive, toggleDialog] = useState(false)
@@ -62,7 +64,7 @@ const ChatScreen = () => {
   }
 
   const handleMemberDialog = member => {
-    addMemberToRoom(currentUser, currentRoom, member)
+    addMemberToRoom(currentUser, currentRoom, member, dispatch)
   }
 
   const onDialogSubmit =
@@ -71,6 +73,10 @@ const ChatScreen = () => {
   const handleSettings = () => {
     toggleSettingPane(!isSettingActive)
   }
+
+  const errorNotification = isError && (
+    <ErrorNotification dispatch={dispatch} theme={theme} />
+  )
 
   const dialog = isDialogActive && (
     <Dialog
@@ -81,8 +87,10 @@ const ChatScreen = () => {
     />
   )
 
+  let renderScreen
+
   if (isSettingActive) {
-    return (
+    renderScreen = (
       <Setting
         currentTheme={theme}
         handleSettings={handleSettings}
@@ -90,7 +98,7 @@ const ChatScreen = () => {
       />
     )
   } else {
-    return (
+    renderScreen = (
       <Home
         currentUser={currentUser}
         currentRoom={currentRoom}
@@ -106,6 +114,13 @@ const ChatScreen = () => {
       />
     )
   }
+
+  return (
+    <>
+      {renderScreen}
+      {errorNotification}
+    </>
+  )
 }
 
 export default ChatScreen
