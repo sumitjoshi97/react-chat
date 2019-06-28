@@ -1,0 +1,33 @@
+.error {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  border: 0px;
+  border-radius: 4px;
+  opacity: 0;
+  animation: hide-error 1.6s forwards;
+}
+
+@keyframes hide-error {
+  0% {
+    top: 100px;
+    opacity: 0;
+  }
+
+  30% {
+    top: 80px;
+    opacity: 1;
+  }
+  60% {
+    top: 80px;
+    opacity: 1;
+  }
+  100% {
+    top: 60px;
+    opacity: 0;
+  }
+}
