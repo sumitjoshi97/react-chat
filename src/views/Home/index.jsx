@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import Chatkit from '@pusher/chatkit-client'
 
-import Home from './Home'
+import ChatScreen from './ChatScreen'
 import Dialog from '../../components/Dialog'
 import Setting from '../../components/Setting'
 import './styles.css'
@@ -16,7 +16,7 @@ import {
 } from '../../store/actions'
 import ErrorNotification from '../../components/ErrorNotification'
 
-const ChatScreen = () => {
+const Home = () => {
   const { state, dispatch } = useContext(Store)
   const {
     isAuth,
@@ -99,7 +99,7 @@ const ChatScreen = () => {
     )
   } else {
     renderScreen = (
-      <Home
+      <ChatScreen
         currentUser={currentUser}
         currentRoom={currentRoom}
         messages={messages}
@@ -123,4 +123,4 @@ const ChatScreen = () => {
   )
 }
 
-export default ChatScreen
+export default Home

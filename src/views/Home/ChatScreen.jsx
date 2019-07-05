@@ -7,7 +7,7 @@ import Messagelist from '../../components/MessageList'
 import TypingIndicator from '../../components/TypingIndicator'
 import SendMessageForm from '../../components/SendMessageForm'
 
-const Home = props => {
+const ChatScreen = props => {
   const {
     currentUser,
     currentRoom,
@@ -56,7 +56,7 @@ const Home = props => {
   )
 }
 
-Home.propTypes = {
+ChatScreen.propTypes = {
   currentUser: PropTypes.object,
   currentRoom: PropTypes.object,
   messages: PropTypes.array,
@@ -70,4 +70,4 @@ Home.propTypes = {
   handleTypingIndicator: PropTypes.func.isRequired,
 }
 
-export default Home
+export default ChatScreen
