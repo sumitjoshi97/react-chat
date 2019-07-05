@@ -12,9 +12,7 @@ const UserLogin = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    if (name.trim().length > 0) {
-      onUsernameSubmit(name, dispatch)
-    }
+    name.trim().length > 0 && onUsernameSubmit(name, dispatch)
   }
 
   const errorNotification = state.isError && (
