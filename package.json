@@ -1,5 +1,6 @@
 {
   "name": "react-chat-client",
+  "version": "0.1.1",
   "private": false,
   "license": "MIT",
   "homepage": "https://sumitjoshi.github.io/react-chat",
