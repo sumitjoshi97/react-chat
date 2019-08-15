@@ -47,7 +47,7 @@ const Home = () => {
   }, [])
 
   const handleMessageForm = message => {
-    sendMessage(currentUser, currentRoom, message)
+    sendMessage(currentUser, currentRoom, message, dispatch)
   }
 
   const handleTypingIndicator = () => {
