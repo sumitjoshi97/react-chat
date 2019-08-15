@@ -1,9 +1,8 @@
 {
-  "name": "react-slack-client",
-  "version": "0.1.0",
+  "name": "react-chat-client",
   "private": false,
   "license": "MIT",
-  "homepage": "https://sumitjoshi.github.io/react-slack",
+  "homepage": "https://sumitjoshi.github.io/react-chat",
   "dependencies": {
     "@pusher/chatkit-client": "^1.1.1",
     "radium": "^0.25.0",
