@@ -3,19 +3,19 @@
   "version": "0.1.1",
   "private": false,
   "license": "MIT",
-  "homepage": "https://sumitjoshi.github.io/react-chat",
+  "homepage": "https://sumitjoshi97.github.io/react-chat",
   "dependencies": {
-    "@pusher/chatkit-client": "^1.1.1",
+    "@pusher/chatkit-client": "^1.11.0",
     "radium": "^0.25.0",
-    "react": "^16.6.3",
+    "react": "^16.9.0",
     "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
-    "gh-pages": "^2.0.1",
+    "concurrently": "^4.1.1",
+    "gh-pages": "^2.1.1",
     "prop-types": "^15.6.2",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
