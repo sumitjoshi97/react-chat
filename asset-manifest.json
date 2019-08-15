@@ -1,13 +1,15 @@
 {
-  "main.css": "/react-slack/static/css/main.32a4caad.chunk.css",
-  "main.js": "/react-slack/static/js/main.bbaa7171.chunk.js",
-  "main.js.map": "/react-slack/static/js/main.bbaa7171.chunk.js.map",
-  "static/js/1.2e2d4f48.chunk.js": "/react-slack/static/js/1.2e2d4f48.chunk.js",
-  "static/js/1.2e2d4f48.chunk.js.map": "/react-slack/static/js/1.2e2d4f48.chunk.js.map",
-  "runtime~main.js": "/react-slack/static/js/runtime~main.1fd978ee.js",
-  "runtime~main.js.map": "/react-slack/static/js/runtime~main.1fd978ee.js.map",
-  "static/css/main.32a4caad.chunk.css.map": "/react-slack/static/css/main.32a4caad.chunk.css.map",
-  "index.html": "/react-slack/index.html",
-  "precache-manifest.f1932034decbe04c9f66538956e25015.js": "/react-slack/precache-manifest.f1932034decbe04c9f66538956e25015.js",
-  "service-worker.js": "/react-slack/service-worker.js"
+  "files": {
+    "main.css": "/react-chat/static/css/main.343f7a4c.chunk.css",
+    "main.js": "/react-chat/static/js/main.1837e320.chunk.js",
+    "main.js.map": "/react-chat/static/js/main.1837e320.chunk.js.map",
+    "runtime~main.js": "/react-chat/static/js/runtime~main.471f9e0d.js",
+    "runtime~main.js.map": "/react-chat/static/js/runtime~main.471f9e0d.js.map",
+    "static/js/2.c674611b.chunk.js": "/react-chat/static/js/2.c674611b.chunk.js",
+    "static/js/2.c674611b.chunk.js.map": "/react-chat/static/js/2.c674611b.chunk.js.map",
+    "index.html": "/react-chat/index.html",
+    "precache-manifest.a93fd18fe03fca7e2966c47c5aaf4481.js": "/react-chat/precache-manifest.a93fd18fe03fca7e2966c47c5aaf4481.js",
+    "service-worker.js": "/react-chat/service-worker.js",
+    "static/css/main.343f7a4c.chunk.css.map": "/react-chat/static/css/main.343f7a4c.chunk.css.map"
+  }
 }
